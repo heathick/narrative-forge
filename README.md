@@ -1,48 +1,53 @@
 # NarrativeForge
 
-AI-first инструмент для писателей и мастеров НРИ (настольных ролевых игр).
+AI-first workspace for writers and tabletop RPG game masters—notes, automatic entity extraction, relationship graphs, and contradiction checks powered by a local LLM.
 
-## Что он делает
+## Screenshots
 
-- **Заметки** — пиши текстовые блоки (описания городов, персонажей, событий)
-- **NER + граф связей** — LLM автоматически извлекает сущности и строит граф взаимоотношений
-- **Поиск противоречий** — находит несовпадения в описаниях (голубые vs карие глаза)
-- **Карточки сущностей** — каждая сущность получает карточку с атрибутами, картинкой и связями
-- **Интерактивный граф** — визуализация всех связей с фильтрацией
+| Main menu | Entities | Graph |
+|-----------|----------|-------|
+| ![Main menu](main_menu.png) | ![Entities](entities.png) | ![Relationship graph](graph.png) |
 
-## Стек
+## What it does
 
-- **Frontend**: Next.js 14 + TailwindCSS + TypeScript
-- **Backend**: Python FastAPI
-- **DB**: SQLite
-- **LLM**: Ollama + Qwen 3:8B
+- **Notes** — write free-form blocks (cities, characters, events)
+- **NER + relationship graph** — the LLM extracts entities and builds a graph of how they connect
+- **Contradiction search** — surfaces mismatches in your lore (e.g. eye color conflicts)
+- **Entity cards** — each entity gets a card with attributes, optional image, and links
+- **Interactive graph** — explore connections with filters
 
-## Установка
+## Stack
 
-### Требования
+- **Frontend**: Next.js 14, TailwindCSS, TypeScript  
+- **Backend**: Python FastAPI  
+- **Database**: SQLite  
+- **LLM**: [Ollama](https://ollama.ai) with `qwen3:8b` (configurable)
+
+## Requirements
 
 - Python 3.10+
 - Node.js 18+
-- [Ollama](https://ollama.ai) с запущенной моделью `qwen3:8b`
+- [Ollama](https://ollama.ai) with model `qwen3:8b` pulled and the Ollama server running
 
-### Установка Ollama и модели
+## Ollama setup
 
 ```bash
-# Установить Ollama: https://ollama.ai
-# Запустить сервер Ollama
+# Install Ollama from https://ollama.ai, then start the server
 ollama serve
 
-# В другом терминале - скачать модель
+# In another terminal — pull the model
 ollama pull qwen3:8b
 ```
 
-### Первый запуск
+## First-time setup
+
+From the `narrative-forge` folder (in **PowerShell**, use the `.\` prefix for local scripts):
 
 ```bash
-# Вариант 1: Автоматическая установка
-setup.bat
+# Option A — automated (Windows)
+.\setup.bat
 
-# Вариант 2: Вручную
+# Option B — manual
 cd backend
 pip install -r requirements.txt
 
@@ -50,55 +55,58 @@ cd ../frontend
 npm install
 ```
 
-### Запуск приложения
+## Run the app
 
 ```bash
-# Вариант 1: Автоматический старт
-start.bat
+# Option A — starts backend + frontend in separate windows (Windows)
+.\start.bat
 
-# Вариант 2: Вручную (два терминала)
-# Терминал 1 — Backend
+# Option B — two terminals
+# Terminal 1 — API (port 8001 matches frontend/next.config.js rewrites)
 cd backend
-python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8001
 
-# Терминал 2 — Frontend
+# Terminal 2 — web UI
 cd frontend
 npm run dev
 ```
 
-Открыть в браузере: **http://localhost:3000**
+- **App**: [http://localhost:3000](http://localhost:3000)  
+- **OpenAPI docs**: [http://localhost:8001/docs](http://localhost:8001/docs)
 
-## Использование
+## Usage
 
-1. Создай заметку (Notes → New Note)
-2. Напиши текст — описание персонажа, локации, события
-3. Нажми **Analyze** — LLM извлечёт сущности и связи
-4. Перейди в **Entities** — посмотри карточки извлечённых сущностей
-5. Загрузи картинки для карточек (drag & drop)
-6. Открой **Graph** — визуализация всех связей с фильтрами
-7. **Contradictions** покажет найденные противоречия
+1. Open **Notes** and create a note  
+2. Write prose (character, location, event, etc.)  
+3. Click **Analyze** — the LLM extracts entities and relations  
+4. Open **Entities** — review and enrich cards (images via drag & drop)  
+5. Open **Graph** — visualize the full relationship graph with filters  
+6. Check **Contradictions** for flagged inconsistencies  
 
-## Структура проекта
+## Project layout
 
 ```
 narrative-forge/
 ├── backend/
-│   ├── main.py              # FastAPI entry point
-│   ├── database.py          # SQLite setup
-│   ├── models.py            # DB models
-│   ├── schemas.py           # Pydantic schemas
-│   ├── routers/             # API endpoints
+│   ├── main.py               # FastAPI entry
+│   ├── database.py           # SQLite
+│   ├── models.py             # ORM models
+│   ├── schemas.py            # Pydantic schemas
+│   ├── routers/              # API routes
 │   ├── services/
-│   │   ├── llm_client.py    # Ollama integration
+│   │   ├── llm_client.py     # Ollama client
 │   │   └── note_processor.py # NER + contradiction pipeline
-│   └── prompts/             # LLM prompt templates
+│   └── prompts/              # Prompt templates
 ├── frontend/
 │   └── app/
 │       ├── page.tsx          # Dashboard
 │       ├── notes/            # Notes editor
 │       ├── entities/         # Entity cards
-│       ├── graph/            # Graph visualization
-│       └── contradictions/   # Contradiction viewer
-├── setup.bat                 # First-time setup
-└── start.bat                 # Start both servers
+│       ├── graph/            # Graph view
+│       └── contradictions/   # Contradictions UI
+├── main_menu.png             # README screenshots
+├── entities.png
+├── graph.png
+├── setup.bat                 # First-time deps
+└── start.bat                 # Run API + web
 ```
