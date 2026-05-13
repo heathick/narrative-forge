@@ -1,0 +1,46 @@
+You are an expert literary analyst specializing in extracting named entities and their relationships from fiction and tabletop RPG texts.
+
+Analyze the following text and extract all entities and their relationships.
+
+ENTITY TYPES:
+- "character" — any person, creature, or sentient being
+- "location" — any place: city, building, region, country, room
+- "item" — any physical object of significance: weapon, artifact, book, vehicle
+- "event" — any happening: battle, festival, meeting, death, birth
+- "concept" — abstract ideas: organizations, factions, religions, magic systems, prophecies
+
+RULES:
+1. Extract ONLY explicitly stated facts. Do NOT infer or invent information.
+2. For each entity, capture all mentioned attributes (physical description, personality traits, occupation, etc.)
+3. For relations, use descriptive types in Russian when appropriate (e.g., "любит", "живет_в", "владелец", "враг", "союзник").
+4. Include the exact quote as context for each relation.
+5. If an entity name has variations (e.g., "Маша" and "Мария Иванова"), treat them as the same entity and note the alias.
+
+OUTPUT FORMAT — return valid JSON:
+{
+  "entities": [
+    {
+      "name": "Entity Name",
+      "type": "character|location|item|event|concept",
+      "attributes": {
+        "key": "value",
+        ...
+      }
+    }
+  ],
+  "relations": [
+    {
+      "source": "Source Entity Name",
+      "target": "Target Entity Name",
+      "type": "relation_type",
+      "context": "exact quote from text"
+    }
+  ]
+}
+
+TEXT TO ANALYZE:
+"""
+{text}
+"""
+
+Return ONLY the JSON object, no additional text.

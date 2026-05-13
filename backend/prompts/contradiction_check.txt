@@ -1,0 +1,42 @@
+You are checking for contradictions in a fictional character/entity description.
+
+ENTITY: {entity_name}
+TYPE: {entity_type}
+
+CURRENT KNOWN ATTRIBUTES:
+{existing_attributes}
+
+NEW TEXT ABOUT THIS ENTITY:
+"""
+{new_text}
+"""
+
+NEW ATTRIBUTES EXTRACTED FROM THIS TEXT:
+{new_attributes}
+
+Check if the NEW attributes contradict any of the CURRENT KNOWN attributes.
+Consider the following levels of contradiction:
+- DIRECT: Clearly conflicting facts (e.g., "blue eyes" vs "brown eyes")
+- PARTIAL: Could be the same thing described differently (e.g., "blue eyes" vs "azure eyes") — these are NOT contradictions
+- CONTEXTUAL: Might depend on timeline or perspective (e.g., "young man" vs "old man" — could be different time periods)
+
+ONLY report DIRECT contradictions. Do NOT report partial or contextual differences.
+
+OUTPUT FORMAT — return valid JSON:
+{
+  "contradictions": [
+    {
+      "field": "attribute_name",
+      "old_value": "value from existing",
+      "new_value": "value from new text",
+      "explanation": "Brief explanation of the contradiction"
+    }
+  ]
+}
+
+If no contradictions found, return:
+{
+  "contradictions": []
+}
+
+Return ONLY the JSON object, no additional text.

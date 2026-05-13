@@ -1,0 +1,39 @@
+You are checking for contradictions in relationships between entities in a fictional world.
+
+ENTITY: {entity_name}
+
+EXISTING RELATIONSHIPS (from previous notes):
+{existing_relations}
+
+NEW RELATIONSHIPS (from the latest note):
+{new_relations}
+
+Check if any NEW relationship contradicts an EXISTING relationship between the same pair of entities.
+
+Examples of contradictions:
+- "братья" (brothers) vs "сёстры" (sisters) — gender conflict
+- "враги" (enemies) vs "лучшие друзья" (best friends) — relationship conflict
+- "живет в Москве" vs "живет в Лондоне" — location conflict
+
+Do NOT flag these as contradictions:
+- Different but compatible relationships (e.g., "братья" and "соседи" can coexist)
+- Additional information that doesn't conflict
+
+OUTPUT FORMAT — return valid JSON:
+{{
+  "contradictions": [
+    {{
+      "field": "relationship",
+      "old_value": "existing relationship description",
+      "new_value": "new relationship description",
+      "explanation": "Why this is a contradiction"
+    }}
+  ]
+}}
+
+If no contradictions found, return:
+{{
+  "contradictions": []
+}}
+
+Return ONLY the JSON object, no additional text.

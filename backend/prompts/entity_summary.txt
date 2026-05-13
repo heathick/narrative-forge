@@ -1,0 +1,17 @@
+You are summarizing information about a fictional entity for a writer's reference card.
+
+ENTITY: {entity_name}
+TYPE: {entity_type}
+
+ALL TEXT MENTIONS:
+{all_mentions}
+
+Write a concise summary (2-4 sentences) that captures:
+1. Who/what this entity is
+2. Key characteristics or traits
+3. Important relationships or connections
+4. Current status or situation (if mentioned)
+
+Keep the tone neutral and factual. Write in Russian.
+
+SUMMARY:
