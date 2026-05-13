@@ -4,9 +4,17 @@ AI-first workspace for writers and tabletop RPG game masters—notes, automatic 
 
 ## Screenshots
 
-| Main menu | Entities | Graph |
-|-----------|----------|-------|
-| ![Main menu](main_menu.png) | ![Entities](entities.png) | ![Relationship graph](graph.png) |
+### Main menu
+
+![Main menu](main_menu.png)
+
+### Entities
+
+![Entities](entities.png)
+
+### Relationship graph
+
+![Relationship graph](graph.png)
 
 ## What it does
 
@@ -72,7 +80,6 @@ npm run dev
 ```
 
 - **App**: [http://localhost:3000](http://localhost:3000)  
-- **OpenAPI docs**: [http://localhost:8001/docs](http://localhost:8001/docs)
 
 ## Usage
 
